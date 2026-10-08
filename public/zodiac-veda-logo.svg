@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 116" role="img" aria-labelledby="title desc">
+  <title id="title">Zodiac Veda</title>
+  <desc id="desc">A luxury gold astrolabe crest with a ZV monogram and the Zodiac Veda wordmark.</desc>
+  <defs>
+    <radialGradient id="d" cx="36%" cy="29%" r="76%"><stop stop-color="#292548"/><stop offset=".52" stop-color="#111027"/><stop offset="1" stop-color="#070713"/></radialGradient>
+    <linearGradient id="g" x1="12" y1="8" x2="101" y2="106"><stop stop-color="#fff4bc"/><stop offset=".24" stop-color="#dab86b"/><stop offset=".52" stop-color="#fff0aa"/><stop offset=".78" stop-color="#b6822e"/><stop offset="1" stop-color="#f4d98c"/></linearGradient>
+  </defs>
+  <circle cx="58" cy="58" r="52" fill="#090817" stroke="#51401f" stroke-width="1.5"/>
+  <circle cx="58" cy="58" r="47" fill="url(#d)" stroke="url(#g)" stroke-width="2.5"/>
+  <circle cx="58" cy="58" r="40" fill="none" stroke="#a98b4d" stroke-width=".9"/>
+  <ellipse cx="58" cy="58" rx="34" ry="14" transform="rotate(-23 58 58)" fill="none" stroke="#d9bb72" opacity=".5"/>
+  <g fill="url(#g)"><path d="M58 10 61 16 58 22 55 16Z"/><path d="M106 58 100 61 94 58 100 55Z"/><path d="M58 106 55 100 58 94 61 100Z"/><path d="M10 58 16 55 22 58 16 61Z"/></g>
+  <circle cx="58" cy="58" r="22" fill="#0c0b1c" stroke="url(#g)" stroke-width="1.7"/>
+  <path d="M41 43h30L46 61h25" fill="none" stroke="url(#g)" stroke-width="3.8"/>
+  <path d="m44 51 14 22 15-31" fill="none" stroke="#fff0ae" stroke-width="4"/>
+  <circle cx="58" cy="58" r="2.7" fill="#f7d982"/>
+  <text x="133" y="66" fill="#f4d98c" font-family="Georgia,Times New Roman,serif" font-size="43" font-weight="700" letter-spacing="1">Zodiac</text>
+  <text x="291" y="66" fill="#ddd2b0" font-family="Georgia,Times New Roman,serif" font-size="43" font-weight="700" letter-spacing="1">Veda</text>
+  <line x1="135" y1="76" x2="438" y2="76" stroke="#8d7037" stroke-width="1"/>
+  <text x="136" y="94" fill="#7f8ba3" font-family="Arial,sans-serif" font-size="10" letter-spacing="3.8">VEDIC ASTROLOGY · PRECISELY CALCULATED</text>
+</svg>

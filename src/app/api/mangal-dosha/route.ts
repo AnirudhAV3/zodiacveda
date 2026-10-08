@@ -1,0 +1,8 @@
+import { NextResponse } from "next/server";
+import { db } from "@/db";
+import { calculatorReports, charts } from "@/db/schema";
+import { computeChart } from "@/lib/astro/calc";
+import { assertUsableChart, BirthInputError, calculatorSlug, chartRow, validateBirthDetails } from "@/lib/calculators/birth";
+import { buildMangalReport } from "@/lib/dedicated-doshas/report";
+export const runtime="nodejs"; export const dynamic="force-dynamic";
+export async function POST(req:Request){try{const raw=await req.text();if(raw.length>8000)return NextResponse.json({error:"Birth details are too large."},{status:413});let b:Record<string,unknown>;try{const p:unknown=JSON.parse(raw);if(!p||typeof p!=="object"||Array.isArray(p))throw 0;b=p as Record<string,unknown>;}catch{return NextResponse.json({error:"Please submit valid birth details."},{status:400});}const style=b.style==="south"?"south":"north";const input=validateBirthDetails(b.person??b,"Birth details",style);const chart=computeChart(input);assertUsableChart(chart,"Birth details");const data=buildMangalReport(chart);const slug=calculatorSlug(),chartSlug=calculatorSlug();await db.transaction(async tx=>{await tx.insert(charts).values(chartRow(chart,chartSlug));await tx.insert(calculatorReports).values({slug,kind:"mangal-dosha",chartSlug,data});});return NextResponse.json({slug,url:`/calculators/mangal-dosha/${slug}`},{status:201});}catch(e){if(e instanceof BirthInputError)return NextResponse.json({error:e.message},{status:400});console.error("Mangal calculation failed",e);return NextResponse.json({error:"We could not calculate or save this report. Please try again."},{status:500});}}
