@@ -30,7 +30,7 @@ export default function AllYogasPage() {
           intro="Raja, Dhana, Pancha Mahapurusha, Chandra, Surya, Nabhasa and Arishta yogas are all evaluated on your real birth chart. Absent yogas are shown too, so you can see exactly what was checked."
         />
       </div>
-      <CalculatorSeoContent slug="all-yogas" />
+      <CalculatorSeoContent slug="all-yogas" /><footer className="mx-auto mt-12 max-w-5xl border-t border-slate-800 py-6"></footer>
     </main>
   );
 }

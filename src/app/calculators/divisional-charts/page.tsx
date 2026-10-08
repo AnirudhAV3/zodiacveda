@@ -30,7 +30,7 @@ export default function DivisionalChartsPage() {
           intro="Each divisional chart refines one area of life — D9 for marriage, D10 for career, D7 for children, D60 for past-life karma. You get every chart drawn in your chosen style, what it is read for, which planets are strong in it, and your Vimsopaka strength across all four classical schemes."
         />
       </div>
-      <CalculatorSeoContent slug="divisional-charts" />
+      <CalculatorSeoContent slug="divisional-charts" /><footer className="mx-auto mt-12 max-w-5xl border-t border-slate-800 py-6"></footer>
     </main>
   );
 }

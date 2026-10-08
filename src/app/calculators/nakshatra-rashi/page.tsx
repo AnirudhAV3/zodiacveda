@@ -16,7 +16,7 @@ export default function NakshatraRashiPage() {
         <header className="mb-8 text-center"><span className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400/20 to-violet-500/20 text-3xl">⭐</span><p className="label-caps !text-amber-300">Calculator 07 · Janma Nakshatra</p><h1 className="mt-2 font-serif text-4xl font-semibold text-slate-100 sm:text-5xl">Nakshatra &amp; Rashi Calculator</h1><p className="mx-auto mt-3 max-w-2xl text-slate-400">Your exact Moon sign, birth star and pada — with Avakhada, Panchang, all four padas, Tara Chakra, lucky factors and a personalised interpretation.</p></header>
         <SingleBirthForm endpoint="/api/nakshatra-rashi" draftKey="jyotisha:nakshatra-rashi:draft-v1" submitLabel="Find my Nakshatra →" busyLabel="Calculating Moon position…" intro="This calculator uses the exact sidereal Moon longitude at your recorded birth time — not just the date. It calculates the 13°20′ nakshatra span, 3°20′ pada, Moon sign, birth syllable and traditional classifications." showStyle={false} />
       </div>
-      <CalculatorSeoContent slug="nakshatra-rashi" />
+      <CalculatorSeoContent slug="nakshatra-rashi" /><footer className="mx-auto mt-12 max-w-5xl border-t border-slate-800 py-6"></footer>
     </main>
   );
 }

@@ -31,7 +31,7 @@ export default function GemstonePage() {
           showStyle={false}
         />
       </div>
-      <CalculatorSeoContent slug="gemstones" />
+      <CalculatorSeoContent slug="gemstones" /><footer className="mx-auto mt-12 max-w-5xl border-t border-slate-800 py-6"></footer>
     </main>
   );
 }

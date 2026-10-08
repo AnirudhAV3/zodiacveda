@@ -29,7 +29,7 @@ export default async function MatchingResultPage({ params }: { params: Promise<{
         <Link href="/#calculators" className="rounded-full border border-slate-600 px-4 py-2 text-sm text-slate-300 hover:border-amber-400">← Calculators</Link>
       </nav>
       <div className="mx-auto max-w-7xl"><MatchingReport result={saved.data as MatchResult} first={a.data as ChartData} second={b.data as ChartData} firstChartSlug={a.slug} secondChartSlug={b.slug} /></div>
-
+      <footer className="mx-auto mt-12 max-w-7xl border-t border-slate-800 py-6"></footer>
     </main>
   );
 }

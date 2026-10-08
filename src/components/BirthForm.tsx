@@ -95,7 +95,7 @@ export default function BirthForm() {
     <form onSubmit={submit} className="card animate-pop mx-auto w-full max-w-2xl space-y-6 p-6 sm:p-10">
       <div className="text-center">
         <p className="label-caps !text-amber-300">Step into the cosmos</p>
-        <h2 className="mt-2 font-serif text-4xl font-semibold text-slate-100">Enter Birth Details</h2>
+        <h1 className="mt-2 font-serif text-4xl font-semibold text-slate-100">Enter Birth Details</h1>
         <p className="mt-2 text-sm text-slate-400">Accurate time and place give accurate charts.</p>
       </div>
 

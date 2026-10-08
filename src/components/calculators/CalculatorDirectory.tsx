@@ -11,10 +11,9 @@ interface Tile {
   status: "available" | "soon";
 }
 
-/** Tile order is fixed: Vedic horoscope first, Western natal second, Marriage third. */
+/** Tile order is fixed: Build Your Horoscope first, Marriage Horoscope second. */
 export const CALCULATOR_TILES: Tile[] = [
   { href: "/build", icon: "🪐", title: "Build Your Horoscope", description: "Your complete Kundli: D1/D9/D10 charts, interactive houses, Vimshottari dashas, predictions, planetary strengths, yogas, doshas and a PDF report.", tags: ["Full birth chart", "PDF report"], action: "Build my chart", accent: "#fbbf24", status: "available" },
-  { href: "/calculators/western-astrology", icon: "☉", title: "Western Astrology", description: "A full tropical natal chart: Sun, Moon and Rising, Porphyry houses, planets through Pluto, aspects, patterns, life areas, transits and progressions.", tags: ["Tropical zodiac", "Sun · Moon · Rising"], action: "Cast Western chart", accent: "#38bdf8", status: "available" },
   { href: "/calculators/marriage-matching", icon: "💞", title: "Marriage Horoscope Matching", description: "36-point Ashtakoota Guna Milan for two people, with Manglik comparison, Nadi & Bhakoot review, both charts and guidance.", tags: ["8 factors", "Two charts"], action: "Match horoscopes", accent: "#f472b6", status: "available" },
   { href: "/calculators/all-yogas", icon: "🔱", title: "All Yogas", description: "Every classical yoga checked on your chart — Raja, Dhana, Mahapurusha, Chandra, Nabhasa and Arishta — with strength, timing and remedies.", tags: ["125 definitions", "Strength & timing"], action: "Find my yogas", accent: "#a78bfa", status: "available" },
   { href: "/calculators/all-doshas", icon: "🛡", title: "All Doshas", description: "Mangal, Kaal Sarp, Pitra, Grahan, Guru Chandal, Kemadruma, Shrapit and Angarak doshas plus Sade Sati — with severity, cancellations, timing and remedies.", tags: ["9 doshas", "Sade Sati dates"], action: "Check my doshas", accent: "#fb7185", status: "available" },
@@ -51,8 +50,8 @@ export default function CalculatorDirectory() {
     <section id="calculators" className="relative z-10 mx-auto max-w-7xl scroll-mt-8 px-6 pb-20">
       <div className="mb-8 text-center">
         <p className="label-caps !text-amber-300">Explore your horoscope</p>
-        <h2 className="mt-2 font-serif text-4xl font-semibold text-slate-100 sm:text-5xl">Astrology Calculators</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-slate-400">{available} calculators ready now, {soon} more being added one at a time. Vedic tools share one Lahiri engine; the Western natal chart is a separate tropical engine — each explains how its result was reached.</p>
+        <h2 className="mt-2 font-serif text-4xl font-semibold text-slate-100 sm:text-5xl">Vedic Astrology Calculators</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-slate-400">{available} calculators ready now, {soon} more being added one at a time. Each uses the same accurate birth-chart engine and explains how its result was reached.</p>
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {CALCULATOR_TILES.map((tile) =>
