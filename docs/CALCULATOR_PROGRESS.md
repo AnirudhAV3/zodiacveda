@@ -51,10 +51,11 @@
 - `tests/final-doshas.e2e.cjs`: all 11 tiles available; Build/Marriage first row; homepage
   Build Chart scroll; real save/render for all 3; key comprehensive sections; mobile.
 
-## Homepage-only designer credit
-`Personally designed by Anirudh Vasa...` exists only in `src/app/page.tsx`.
-It was removed from `/build`, every calculator form/result, and the full chart page.
-`tests/final-site.e2e.cjs` verifies all 11 routes plus repeat-scroll behaviour.
+## Homepage credit
+The homepage footer uses a non-personal astrology tagline and links to the copyright notice.
+The build-chart controls include the searchable language selector. See `docs/TRANSLATION.md`
+for Google Cloud Translation configuration and the visible-content disclosure.
+`tests/final-site.e2e.cjs` verifies the homepage footer and repeat-scroll behaviour.
 
 ## Full verification (all passing)
 Unit: dedicated-doshas, nakshatra-dasha, gemstone-varga, all-doshas, all-yogas,

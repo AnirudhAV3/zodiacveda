@@ -2,16 +2,17 @@
 !.env.example
 
 # Dependencies and generated output
-node_modules/
-.next/
-out/
-build/
-coverage/
+/node_modules/
+/.next/
+/out/
+/build/
+/coverage/
+/next-env.d.ts
 *.tsbuildinfo
 
 # Local platform state
-.netlify
-.vercel
+/.netlify/
+/.vercel/
 
 # Local operating-system files
 .DS_Store

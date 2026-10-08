@@ -1,5 +1,88 @@
-const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),os=require("node:os");const{chromium}=require(process.env.PLAYWRIGHT_CORE_PATH||"playwright-core");const base=process.env.BASE_URL||"http://localhost:3000";
-function exe(){const root=path.join(os.homedir(),".cache","ms-playwright"),v=fs.readdirSync(root).find(x=>x.startsWith("chromium_headless_shell"));for(const d of["chrome-linux","chrome-linux64"]){const p=path.join(root,v,d,"headless_shell");if(fs.existsSync(p))return p;}throw Error("no chromium")}
-(async()=>{const b=await chromium.launch({executablePath:exe(),args:["--no-sandbox"]}),c=await b.newContext({viewport:{width:1440,height:900}}),p=await c.newPage();try{await p.goto(base,{waitUntil:"networkidle"});const target=await p.locator("#calculators").evaluate(e=>e.getBoundingClientRect().top+scrollY);for(const button of [p.getByRole("button",{name:"Build Chart",exact:true}).first(),p.getByRole("button",{name:"Build Chart",exact:true}).last()]){await p.evaluate(()=>scrollTo(0,0));await button.click();await p.waitForTimeout(900);let y=await p.evaluate(()=>scrollY);assert.ok(Math.abs(y-target)<200,`${y}/${target}`);await p.evaluate(()=>scrollTo(0,0));await p.waitForTimeout(200);await button.click();await p.waitForTimeout(900);y=await p.evaluate(()=>scrollY);assert.ok(Math.abs(y-target)<200,`repeat ${y}/${target}`);}console.log("PASS both Build Chart buttons scroll on first and repeated clicks");
-assert.equal(await p.getByText("Personally designed by Anirudh Vasa",{exact:false}).count(),1);const links=["/build","/calculators/marriage-matching","/calculators/all-yogas","/calculators/all-doshas","/calculators/gemstones","/calculators/divisional-charts","/calculators/nakshatra-rashi","/calculators/vimshottari-dasha","/calculators/kaal-sarp","/calculators/mangal-dosha","/calculators/sade-sati"];for(const u of links){await p.goto(base+u,{waitUntil:"domcontentloaded"});assert.equal(await p.getByText("Personally designed by Anirudh Vasa",{exact:false}).count(),0,u);}console.log("PASS designer credit appears only on the homepage");
-await p.goto(base,{waitUntil:"networkidle"});const hs=await p.locator("#calculators h3").allInnerTexts();assert.equal(hs.length,11);assert.equal(await p.locator('#calculators [aria-disabled="true"]').count(),0);assert.deepEqual(hs.slice(0,2),["Build Your Horoscope","Marriage Horoscope Matching"]);console.log("PASS all 11 calculators active, first row fixed");}finally{await c.close();await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const os = require("node:os");
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || "playwright-core");
+const base = process.env.BASE_URL || "http://localhost:3000";
+
+function executable() {
+  const root = path.join(os.homedir(), ".cache", "ms-playwright");
+  const version = fs.readdirSync(root).find((name) => name.startsWith("chromium_headless_shell"));
+  for (const directory of ["chrome-linux", "chrome-linux64"]) {
+    const candidate = path.join(root, version, directory, "headless_shell");
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  throw new Error("Could not find the Playwright Chromium executable.");
+}
+
+(async () => {
+  const browser = await chromium.launch({ executablePath: executable(), args: ["--no-sandbox"] });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await context.newPage();
+  try {
+    await page.route("**/api/translation/languages", (route) => route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ languages: [{ code: "en", name: "English" }, { code: "fr", name: "French" }] }),
+    }));
+    await page.route("**/api/translation", async (route) => {
+      const { texts } = route.request().postDataJSON();
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ translations: texts.map((text) => `FR: ${text}`) }),
+      });
+    });
+
+    await page.goto(base, { waitUntil: "networkidle" });
+    const target = await page.locator("#calculators").evaluate((element) => element.getBoundingClientRect().top + scrollY);
+    const buildButtons = page.getByRole("button", { name: "Build Chart in English", exact: true });
+    assert.equal(await buildButtons.count(), 2);
+    for (const button of await buildButtons.all()) {
+      await page.evaluate(() => scrollTo(0, 0));
+      await button.click();
+      await page.waitForTimeout(700);
+      let scrollPosition = await page.evaluate(() => scrollY);
+      assert.ok(Math.abs(scrollPosition - target) < 200, `${scrollPosition}/${target}`);
+      await page.evaluate(() => scrollTo(0, 0));
+      await page.waitForTimeout(150);
+      await button.click();
+      await page.waitForTimeout(700);
+      scrollPosition = await page.evaluate(() => scrollY);
+      assert.ok(Math.abs(scrollPosition - target) < 200, `repeat ${scrollPosition}/${target}`);
+    }
+    console.log("PASS both Build Chart controls retain repeat-scroll behavior");
+
+    assert.equal(await page.getByText("Created for curious minds seeking clarity in the stars", { exact: false }).count(), 1);
+    assert.equal(await page.getByText(/Anirudh Vasa/i).count(), 0);
+    await page.getByRole("link", { name: "Copyright" }).click();
+    await page.waitForURL("**/copyright");
+    assert.match(await page.locator("main").innerText(), /Copyright © 2026 Zodiac Veda\. All rights reserved\./);
+    console.log("PASS generic footer credit and linked 2026 copyright notice");
+
+    await page.goto(base, { waitUntil: "networkidle" });
+    const languageButton = page.getByRole("button", { name: /Choose language/ }).first();
+    await languageButton.click();
+    await page.getByRole("searchbox", { name: "Search languages" }).fill("French");
+    await page.getByRole("option", { name: /French/ }).click();
+    const consentDialog = page.getByRole("dialog");
+    assert.match(await consentDialog.innerText(), /visible page text.*personal details/i);
+    await consentDialog.getByRole("button", { name: "Translate page" }).click();
+    await page.waitForFunction(() => document.documentElement.lang === "fr");
+    await page.waitForFunction(() => document.querySelector("h1")?.textContent?.includes("FR:"));
+    assert.match(await page.locator("h1").innerText(), /FR: Decode the sky/);
+
+    await page.getByRole("button", { name: /Choose language/ }).first().click();
+    await page.getByRole("searchbox", { name: "Search languages" }).fill("English");
+    await page.getByRole("option", { name: /English/ }).click();
+    await page.waitForFunction(() => document.documentElement.lang === "en");
+    await page.waitForFunction(() => !document.querySelector("h1")?.textContent?.includes("FR:"));
+    console.log("PASS searchable language selection, disclosure, page translation, and English restoration");
+  } finally {
+    await context.close();
+    await browser.close();
+  }
+})().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
