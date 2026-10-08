@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { LanguageProvider } from "@/components/LanguageProvider";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo/catalog";
 import "./globals.css";
@@ -65,10 +64,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen font-sans antialiased">
-        <LanguageProvider>
-          {children}
-          <SiteFooter />
-        </LanguageProvider>
+        {children}
+        <SiteFooter />
       </body>
     </html>
   );

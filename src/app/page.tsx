@@ -20,7 +20,9 @@ export default function HomePage() {
       <Starfield />
       <nav className="relative z-50 mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <BrandLogo compact />
-        <HomeCalculatorButton className="border border-amber-400/40 bg-slate-950/40 text-sm text-amber-200 transition hover:bg-amber-400/10" />
+        <HomeCalculatorButton className="rounded-full border border-amber-400/40 px-5 py-2 text-sm text-amber-200 transition hover:bg-amber-400/10">
+          Build Chart
+        </HomeCalculatorButton>
       </nav>
 
       <section className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pb-16 pt-6 lg:grid-cols-2 lg:pt-12">
@@ -36,10 +38,10 @@ export default function HomePage() {
             Precise birth charts, divisional charts, dashas and time-tested predictions of your past, present and future — career, marriage, children, wealth and more.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <HomeCalculatorButton
-              hero
-              className="bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-base font-semibold text-slate-950 shadow-[0_10px_40px_rgba(249,115,22,0.45)] transition hover:scale-[1.03] sm:text-lg"
-            />
+            <HomeCalculatorButton className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 px-9 py-4 text-lg font-semibold text-slate-950 shadow-[0_10px_40px_rgba(249,115,22,0.45)] transition hover:scale-[1.03]">
+              <span className="glyph text-xl">✦</span> Build Chart
+              <span className="transition group-hover:translate-x-1">→</span>
+            </HomeCalculatorButton>
             <span className="text-sm text-slate-400">Free · No sign-up · Takes 30 seconds</span>
           </div>
         </div>

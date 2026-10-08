@@ -53,8 +53,7 @@
 
 ## Homepage credit
 The homepage footer uses a non-personal astrology tagline and links to the copyright notice.
-The build-chart controls include the searchable language selector. See `docs/TRANSLATION.md`
-for Google Cloud Translation configuration and the visible-content disclosure.
+The homepage uses a generic astrology tagline; the site-wide footer links to the copyright notice.
 `tests/final-site.e2e.cjs` verifies the homepage footer and repeat-scroll behaviour.
 
 ## Full verification (all passing)
