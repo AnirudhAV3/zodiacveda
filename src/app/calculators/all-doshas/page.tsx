@@ -30,7 +30,7 @@ export default function AllDoshasPage() {
           intro="Mangal (Kuja), Kaal Sarp, Pitra, Grahan, Guru Chandal, Kemadruma, Shrapit and Angarak doshas are all evaluated, plus your current Sade Sati phase with real Saturn transit dates. Cancellations are shown openly, and doshas you do not have are listed too."
         />
       </div>
-      <CalculatorSeoContent slug="all-doshas" /><footer className="mx-auto mt-12 max-w-5xl border-t border-slate-800 py-6"></footer>
+      <CalculatorSeoContent slug="all-doshas" />
     </main>
   );
 }

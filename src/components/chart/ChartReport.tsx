@@ -6,6 +6,7 @@ import type { ChartData } from "@/lib/astro/calc";
 import { SIGNS, type PlanetId } from "@/lib/astro/data";
 import { detectDoshas, detectYogas, remedyPlan } from "@/lib/astro/yogas";
 import { overallPredictions } from "@/lib/astro/predictions";
+import { buildEasyChartSummary, buildEasyDashaSummary } from "@/lib/astro/easySummary";
 import ChartSVG, { ChartLegend } from "./ChartSVG";
 import ClickHint from "./ClickHint";
 import HouseModal, { vargaAsc, vargaSign, type Varga } from "./HouseModal";
@@ -16,11 +17,15 @@ import Overview from "./Overview";
 import { Doshas, YogaExplorer } from "./YogaExplorer";
 import DetailsSection from "./DetailsSection";
 import BrandLogo from "@/components/BrandLogo";
+import SiteFooter from "@/components/SiteFooter";
+import { ChartEasySummary, DashaEasySummary } from "./EasySummary";
 
 const NAV = [
   ["details", "Details"],
   ["charts", "Charts"],
+  ["chart-summary", "Chart summary"],
   ["dashas", "Dashas"],
+  ["dasha-summary", "Dasha summary"],
   ["predictions", "Predictions"],
   ["planets", "Planet Details"],
   ["overview", "Overview"],
@@ -53,6 +58,8 @@ export default function ChartReport({ c, transits, now, slug }: { c: ChartData; 
   const doshas = useMemo(() => detectDoshas(c, transits, now), [c, transits, now]);
   const plan = useMemo(() => remedyPlan(c, yogas, doshas), [c, yogas, doshas]);
   const preds = useMemo(() => overallPredictions(c, now), [c, now]);
+  const chartSummary = useMemo(() => buildEasyChartSummary(c, now, transits), [c, now, transits]);
+  const dashaSummary = useMemo(() => buildEasyDashaSummary(c, now), [c, now]);
 
   const share = async () => {
     try {
@@ -139,11 +146,13 @@ export default function ChartReport({ c, transits, now, slug }: { c: ChartData; 
           <div className="mt-4">
             <ChartLegend />
           </div>
+          <ChartEasySummary data={chartSummary} />
         </section>
 
         <section>
           <SectionTitle id="dashas" kicker="Timing of life events" title="Vimshottari Dasha" sub="Mahadasha, Antardasha and Pratyantar Dasha. Click any row to see what happened, what is happening and what will happen, with guidance on what to do and avoid." />
           <DashaSection c={c} now={now} />
+          {dashaSummary && <DashaEasySummary data={dashaSummary} />}
         </section>
 
         <section>
@@ -189,9 +198,7 @@ export default function ChartReport({ c, transits, now, slug }: { c: ChartData; 
         </section>
       </main>
 
-      <footer className="space-y-2 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        
-        Calculations: sidereal zodiac, Lahiri (Chitrapaksha) ayanamsa, whole-sign houses, mean nodes. Predictions are interpretive guidance based on classical Jyotisha principles.</footer>
+      <SiteFooter note="Calculations: sidereal zodiac, Lahiri (Chitrapaksha) ayanamsa, whole-sign houses, mean nodes. Predictions are interpretive guidance based on classical Jyotisha principles." />
 
       {modal && <HouseModal c={c} varga={modal.varga} house={modal.house} onClose={() => setModal(null)} />}
     </div>

@@ -24,7 +24,7 @@ export default async function SavedDoshaReportPage({ params }: { params: Promise
         <Link href="/#calculators" className="rounded-full border border-slate-600 px-4 py-2 text-sm text-slate-300 hover:border-amber-400">← Calculators</Link>
       </nav>
       <div className="mx-auto max-w-6xl"><DoshaReportView report={saved.data as DoshaReport} chartSlug={saved.chartSlug} /></div>
-      <footer className="mx-auto mt-12 max-w-6xl border-t border-slate-800 py-6"></footer>
+
     </main>
   );
 }

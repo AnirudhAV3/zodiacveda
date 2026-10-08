@@ -3,6 +3,7 @@ const base = process.env.BASE_URL || "http://localhost:3000";
 const siteOrigin = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://zodiacveda.netlify.app").replace(/\/$/, "");
 const pages = [
   ["/build", "Vedic Birth Chart Calculator", "Vedic Birth Chart"],
+  ["/calculators/western-astrology", "Western Birth Chart Calculator", "Western Birth Chart Calculator"],
   ["/calculators/marriage-matching", "Kundli Matching Calculator", "Marriage Horoscope Matching"],
   ["/calculators/all-yogas", "All Yogas Calculator", "All Yogas Calculator"],
   ["/calculators/all-doshas", "All Doshas Calculator", "All Doshas Calculator"],
@@ -72,7 +73,8 @@ async function main() {
   for (const [path] of pages) assert.ok(sitemap.includes(path), `sitemap missing ${path}`);
   assert.doesNotMatch(sitemap, /\/chart\//);
   assert.doesNotMatch(sitemap, /\/calculators\/[^<]+\/[a-f0-9]{20}/);
-  assert.equal((sitemap.match(/<url>/g) || []).length, pages.length + 1);
+  assert.ok(sitemap.includes("/copyright"), "sitemap missing /copyright");
+  assert.equal((sitemap.match(/<url>/g) || []).length, pages.length + 2);
   assert.match(sitemap, /2026-10-04/, "Sitemap last-modified reflects the current SEO update");
 
   const robots = await (await fetch(base + "/robots.txt")).text();

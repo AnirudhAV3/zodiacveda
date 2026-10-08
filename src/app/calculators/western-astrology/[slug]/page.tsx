@@ -4,17 +4,17 @@ import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { calculatorReports } from "@/db/schema";
-import type { VargaReport } from "@/lib/varga/report";
+import type { WesternReport } from "@/lib/western/report";
 import { Starfield } from "@/components/Cosmos";
-import VargaReportView from "@/components/calculators/VargaReportView";
+import WesternReportView from "@/components/calculators/WesternReportView";
 import BrandLogo from "@/components/BrandLogo";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Saved Divisional Charts — Zodiac Veda", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Saved Western Natal Chart — Zodiac Veda", robots: { index: false, follow: false } };
 
-export default async function SavedVargaReportPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function SavedWesternReportPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [saved] = await db.select().from(calculatorReports).where(and(eq(calculatorReports.slug, slug), eq(calculatorReports.kind, "divisional-charts"))).limit(1);
+  const [saved] = await db.select().from(calculatorReports).where(and(eq(calculatorReports.slug, slug), eq(calculatorReports.kind, "western-astrology"))).limit(1);
   if (!saved) notFound();
   return (
     <main className="relative min-h-screen px-4 py-6 sm:px-6">
@@ -23,8 +23,9 @@ export default async function SavedVargaReportPage({ params }: { params: Promise
         <BrandLogo compact />
         <Link href="/#calculators" className="rounded-full border border-slate-600 px-4 py-2 text-sm text-slate-300 hover:border-amber-400">← Calculators</Link>
       </nav>
-      <div className="mx-auto max-w-6xl"><VargaReportView report={saved.data as VargaReport} chartSlug={saved.chartSlug} /></div>
-
+      <div className="mx-auto max-w-6xl">
+        <WesternReportView report={saved.data as WesternReport} />
+      </div>
     </main>
   );
 }

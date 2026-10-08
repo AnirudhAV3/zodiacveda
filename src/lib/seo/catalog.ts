@@ -35,6 +35,22 @@ export const CALCULATOR_SEO = {
       { q: "How accurate must my birth time be?", a: "Use the recorded birth time whenever possible. Divisional charts and the ascendant can change when the time changes by only a few minutes." },
     ],
   },
+  "western-astrology": {
+    name: "Western Birth Chart & Tropical Natal Calculator",
+    shortName: "Western Astrology",
+    path: "/calculators/western-astrology",
+    title: "Free Western Birth Chart Calculator – Tropical Natal",
+    description: "Cast a free Western natal chart with tropical Sun, Moon and Rising, Porphyry houses, planets through Pluto, aspects, patterns, transits and progressions.",
+    keywords: ["Western birth chart calculator", "tropical natal chart", "Sun Moon Rising calculator", "Porphyry houses", "natal aspects calculator", "Western astrology chart", "free natal chart", "progressed moon"],
+    intro: "Cast a complete Western nativity from your recorded date, 24-hour birth time and place. The engine is tropical (seasonal), not Vedic sidereal: Sun, Moon, Rising, Porphyry houses, planets through Pluto, aspect patterns, life-area readings, current transits and secondary progressions.",
+    features: ["Tropical Sun, Moon and Rising with decans", "Porphyry houses from the Ascendant and Midheaven", "Planets through Pluto plus mean lunar nodes", "Major aspects, stelliums, T-squares and Jones patterns", "Life-area synthesis, transits and secondary progressions"],
+    steps: ["Enter the recorded birth date and exact 24-hour time.", "Select the birth city so coordinates and time zone are correct.", "Generate the saved Western natal report and explore every tab."],
+    faq: [
+      { q: "Is this the same as the Vedic Kundli on this site?", a: "No. This calculator uses the tropical zodiac and Western house and aspect methods. The Vedic engine uses Lahiri sidereal longitudes and a different house system. Both can be true to their own tradition." },
+      { q: "Which house system does the Western chart use?", a: "Porphyry: the Ascendant and Midheaven are calculated astronomically, then each quadrant is divided into three equal ecliptic spans. This is a classical Western quadrant system that remains defined at every latitude." },
+      { q: "Do I need an exact birth time?", a: "Yes for Rising, houses, the Part of Fortune and house-based readings. Sun sign alone can be known from the date; the rest of a natal chart moves with the minutes." },
+    ],
+  },
   "marriage-matching": {
     name: "Kundli Matching & Marriage Horoscope Matching Calculator",
     shortName: "Marriage Horoscope Matching",

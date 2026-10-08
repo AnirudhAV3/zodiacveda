@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zodiac Veda — Preview</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: #e2e8f0;
+      background: radial-gradient(ellipse at top, #1b1640 0%, #0b0a1f 45%, #05040f 100%) fixed;
+    }
+    a { color: inherit; text-decoration: none; }
+    .serif { font-family: "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .wordmark { font-size: 1.35rem; font-weight: 600; letter-spacing: .035em; color: #F4D98C; }
+    .wordmark span { color: #DDD2B0; }
+    .pill {
+      border: 1px solid rgba(251,191,36,.4);
+      color: #fde68a;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+    }
+    .hero { display: grid; gap: 40px; padding: 24px 0 64px; }
+    @media (min-width: 900px) { .hero { grid-template-columns: 1.1fr .9fr; align-items: center; } }
+    .caps { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #fcd34d; font-weight: 600; }
+    h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.05; margin: 16px 0 0; font-weight: 600; }
+    .shimmer {
+      background: linear-gradient(90deg, #fbbf24, #fde68a, #f472b6, #a78bfa, #fbbf24);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lede { max-width: 36rem; font-size: 1.15rem; color: #cbd5e1; line-height: 1.6; }
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(90deg, #fbbf24, #f97316, #ec4899);
+      color: #0b0a1f; font-weight: 700; border-radius: 999px; padding: 14px 28px; font-size: 1.05rem;
+      box-shadow: 0 10px 40px rgba(249,115,22,.45);
+    }
+    .orb {
+      width: min(420px, 100%); aspect-ratio: 1; margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #fbbf24, #7c3aed 38%, #0b0a1f 70%);
+      box-shadow: 0 0 80px 24px rgba(251,191,36,.28);
+      position: relative;
+    }
+    .orb::after {
+      content: ""; position: absolute; inset: 18%; border-radius: 50%;
+      border: 1px dashed rgba(253,230,138,.45);
+    }
+    h2 { text-align: center; font-size: 1.9rem; font-weight: 600; color: #e2e8f0; }
+    .card {
+      background: linear-gradient(160deg, rgba(30,41,79,.55), rgba(15,18,42,.75));
+      border: 1px solid rgba(148,163,184,.15);
+      border-radius: 20px;
+    }
+    .quote { max-width: 760px; margin: 0 auto 80px; padding: 40px 32px; text-align: center; position: relative; }
+    .quote p { font-size: clamp(1.35rem, 3vw, 1.85rem); line-height: 1.35; margin: 0; }
+    .who { margin-top: 22px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: #fcd34d; }
+    .dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+    .dots button { height: 6px; border: 0; border-radius: 999px; background: #475569; cursor: pointer; width: 8px; }
+    .dots button.on { width: 32px; background: #fbbf24; }
+    .tiles { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); padding-bottom: 72px; }
+    .tile { padding: 22px; border-radius: 18px; border: 1px solid rgba(148,163,184,.14); background: rgba(15,18,42,.55); }
+    .tile h3 { margin: 10px 0 8px; font-size: 1.15rem; }
+    .tile p { margin: 0; color: #94a3b8; font-size: 14px; line-height: 1.5; }
+    footer { border-top: 1px solid rgba(251,191,36,.15); background: rgba(7,7,26,.82); }
+    .fg { display: grid; gap: 36px; padding: 48px 0; }
+    @media (min-width: 800px) { .fg { grid-template-columns: 1.3fr 1fr 1fr 1.1fr; } }
+    .label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #fcd34d; font-weight: 700; }
+    footer ul { list-style: none; padding: 0; margin: 14px 0 0; }
+    footer li { margin: 8px 0; color: #cbd5e1; font-size: 14px; }
+    footer a:hover { color: #fde68a; }
+    .tagline { font-size: 1.05rem; color: #cbd5e1; margin: 18px 0 10px; }
+    .muted { color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 280px; }
+    address { font-style: normal; color: #cbd5e1; font-size: 14px; line-height: 1.7; }
+    .mail { color: #fde68a; }
+    .bar { border-top: 1px solid #1e293b; }
+    .bar-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 18px 0; font-size: 12px; color: #64748b; }
+    .copy-tag {
+      border: 1px solid rgba(251,191,36,.35);
+      color: #fde68a; border-radius: 999px; padding: 5px 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    }
+    article { max-width: 820px; margin: 0 auto; padding: 24px 24px 80px; }
+    article h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+    article h2 { text-align: left; font-size: 1.7rem; margin: 42px 0 12px; }
+    article p, article li { color: #cbd5e1; line-height: 1.7; }
+    .toc { padding: 20px 24px; margin: 28px 0; }
+    .toc ol { columns: 2; padding-left: 18px; }
+    .goldbox { padding: 24px 28px; margin: 24px 0; border: 1px solid rgba(251,191,36,.22); }
+    .hide { display: none; }
+    .page { min-height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="home" class="page">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <svg viewBox="0 0 96 96" width="39" height="39" fill="none">
+            <defs>
+              <radialGradient id="zv-dial" cx="36%" cy="29%" r="76%"><stop stop-color="#292548"/><stop offset=".52" stop-color="#111027"/><stop offset="1" stop-color="#070713"/></radialGradient>
+              <linearGradient id="zv-gold" x1="18" y1="13" x2="78" y2="83"><stop stop-color="#FFF4BC"/><stop offset=".24" stop-color="#DAB86B"/><stop offset=".52" stop-color="#FFF0AA"/><stop offset=".78" stop-color="#B6822E"/><stop offset="1" stop-color="#F4D98C"/></linearGradient>
+            </defs>
+            <circle cx="48" cy="48" r="44" fill="url(#zv-dial)" stroke="#6F5729" stroke-width="1.2"/>
+            <circle cx="48" cy="48" r="40.5" stroke="url(#zv-gold)" stroke-width="1.8"/>
+            <circle cx="48" cy="48" r="18" fill="#0C0B1C" stroke="url(#zv-gold)" stroke-width="1.35"/>
+            <path d="M34 36h23L38 50h19" stroke="url(#zv-gold)" stroke-width="3.1"/>
+            <path d="m36 43 12 18 12-25" stroke="#FFF0AE" stroke-width="3.2"/>
+            <circle cx="48" cy="48" r="2.25" fill="#F7D982"/>
+          </svg>
+          <div class="serif wordmark">Zodiac <span>Veda</span></div>
+        </div>
+        <a class="pill" href="#calculators">Build Chart</a>
+      </div>
+
+      <section class="hero">
+        <div>
+          <div class="caps">Vedic Astrology · Jyotiṣa Śāstra</div>
+          <h1 class="serif"><span class="shimmer">Decode the sky</span><br>the moment you were born</h1>
+          <p class="lede">Precise birth charts, divisional charts, dashas and time-tested predictions of your past, present and future — career, marriage, children, wealth and more.</p>
+          <p><a class="cta" href="#calculators">✦ Build Chart →</a></p>
+        </div>
+        <div class="orb" aria-hidden="true"></div>
+      </section>
+
+      <h2 class="serif">Wisdom of the stars, in the words of the great</h2>
+      <div class="card quote">
+        <p id="qtext" class="serif">“Millionaires don't use astrology, billionaires do.”</p>
+        <div id="qwho" class="who">— J.P. Morgan</div>
+        <div class="dots" id="qdots"></div>
+      </div>
+
+      <h2 id="calculators" class="serif">Calculators</h2>
+      <div class="tiles">
+        <div class="tile"><div>🪐</div><h3 class="serif">Build Your Horoscope</h3><p>Complete Kundli, dashas, yogas, doshas and a PDF report.</p></div>
+        <div class="tile"><div>💞</div><h3 class="serif">Marriage Horoscope Matching</h3><p>36 Guna Milan, Manglik check and both charts.</p></div>
+        <div class="tile"><div>🔱</div><h3 class="serif">All Yogas</h3><p>125 classical combinations, present and absent.</p></div>
+        <div class="tile"><div>⚠️</div><h3 class="serif">All Doshas</h3><p>Mangal, Kaal Sarp, Pitra and more, with remedies.</p></div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="wrap fg">
+        <div>
+          <div class="brand">
+            <svg viewBox="0 0 96 96" width="46" height="46" fill="none">
+              <circle cx="48" cy="48" r="44" fill="#111027" stroke="#6F5729" stroke-width="1.2"/>
+              <circle cx="48" cy="48" r="40.5" stroke="#F4D98C" stroke-width="1.8"/>
+              <circle cx="48" cy="48" r="18" fill="#0C0B1C" stroke="#F4D98C"/>
+              <path d="M34 36h23L38 50h19" stroke="#F4D98C" stroke-width="3.1"/>
+              <path d="m36 43 12 18 12-25" stroke="#FFF0AE" stroke-width="3.2"/>
+            </svg>
+            <div>
+              <div class="serif wordmark">Zodiac <span>Veda</span></div>
+              <div style="font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:#64748b;margin-top:4px;">Vedic Astrology</div>
+            </div>
+          </div>
+          <p class="serif tagline">✦ The sky wrote your first chapter. We help you read the rest. ✦</p>
+          <p class="muted">Sidereal Vedic astrology, Lahiri ayanamsa, calculated with care for guidance and reflection — never as a substitute for your own judgement.</p>
+        </div>
+        <div>
+          <div class="label">Calculators</div>
+          <ul>
+            <li>Birth Chart</li><li>Kundli Matching</li><li>Yogas</li><li>Doshas</li>
+            <li>Gemstones</li><li>Nakshatra</li><li>Sade Sati</li>
+          </ul>
+        </div>
+        <div>
+          <div class="label">Legal</div>
+          <ul>
+            <li><a href="#copyright">Copyright &amp; rights</a></li>
+            <li><a href="#use">Permitted use</a></li>
+            <li><a href="#disclaimer">Astrology disclaimer</a></li>
+            <li><a href="#contact">Permissions &amp; notices</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="label">Contact</div>
+          <address>
+            <strong style="color:#f1f5f9">Zodiac Veda</strong><br>
+            Gachibowli<br>
+            Hyderabad, Telangana 500032<br>
+            India<br><br>
+            <a class="mail" href="mailto:vasaanirudh444@gmail.com">vasaanirudh444@gmail.com</a>
+          </address>
+        </div>
+      </div>
+      <div class="bar">
+        <div class="wrap bar-inner">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+            <a href="#copyright" style="color:#cbd5e1;font-weight:600">© 2026 Zodiac Veda. All rights reserved.</a>
+            <a class="copy-tag" href="#copyright">Copyright</a>
+          </div>
+          <div>Astrology is a traditional system of interpretation. Use predictions for guidance, not as destiny.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <article id="copyright">
+    <p class="caps">Legal notice · Last updated 8 October 2026</p>
+    <h1 class="serif">Copyright &amp; all rights reserved</h1>
+    <p>This page is the official statement of ownership, reserved rights and permitted use for Zodiac Veda — including the website, calculators, birth-chart engine, reports, visual identity and written guidance.</p>
+    <div class="card goldbox">
+      <p class="serif" style="font-size:1.5rem;color:#fef3c7;margin:0">© 2026 Zodiac Veda. All rights reserved.</p>
+      <p>No part of this website or its software may be reproduced, distributed, transmitted, stored, adapted or used to train another product except as expressly allowed below or by written permission.</p>
+    </div>
+    <div class="card toc">
+      <div class="label">On this page</div>
+      <ol>
+        <li><a href="#ownership">Ownership of the work</a></li>
+        <li><a href="#reserved">All rights reserved</a></li>
+        <li><a href="#protects">What this copyright protects</a></li>
+        <li><a href="#use">Permitted personal use</a></li>
+        <li><a href="#prohibited">What you may not do</a></li>
+        <li><a href="#reports">Charts, PDFs and saved reports</a></li>
+        <li><a href="#brand">Name, logo and look</a></li>
+        <li><a href="#quotes">Historical quotations</a></li>
+        <li><a href="#disclaimer">Astrology &amp; liability disclaimer</a></li>
+        <li><a href="#data">Birth data you submit</a></li>
+        <li><a href="#third-party">Third-party material</a></li>
+        <li><a href="#enforcement">Enforcement</a></li>
+        <li><a href="#contact">Permissions and notices</a></li>
+        <li><a href="#law">Governing law</a></li>
+      </ol>
+    </div>
+
+    <h2 id="ownership" class="serif">1. Ownership of the work</h2>
+    <p>Zodiac Veda is an original digital work of Vedic astrology software and editorial presentation. The compilation of calculators, the arrangement of the public pages, the report layouts, the interpretive copy, the colour system, the astrolabe crest, the wordmark and the underlying calculation pipeline are owned by Zodiac Veda.</p>
+    <p>“Work” includes source code, algorithms, rule tables, user interfaces, PDF templates, icons, page copy, FAQs and any derivative of the above. Visiting the site does not transfer any copyright to you. You receive only a limited, revocable, non-exclusive permission to use the public calculators as a personal visitor.</p>
+
+    <h2 id="reserved" class="serif">2. All rights reserved</h2>
+    <p>Every right that the owner can reserve under applicable copyright law is reserved, including the rights to reproduce, issue copies, communicate the work to the public, adapt or make a derivative work, licence or assign the work, and authorise others to do any of the above. Silence on a particular use is not permission.</p>
+
+    <h2 id="protects" class="serif">3. What this copyright protects</h2>
+    <p>Protection covers the public website, the calculation layer (natal charts, dashas, yogas, doshas, matching, gemstones, vargas), the written interpretations, the visual system, and the product experience. Classical Jyotisha ideas belong to a shared tradition. What is owned is this implementation: the code, the wording, the design and this particular combination of checks.</p>
+
+    <h2 id="use" class="serif">4. Permitted personal use</h2>
+    <p>You may open the public pages for your own study; enter birth details to generate a chart for yourself or someone who asked you; download the Kundli PDF for that personal chart; keep a private copy; and share a private saved-report link only with people who already have a right to see that birth information. Personal use is not a commercial licence.</p>
+
+    <h2 id="prohibited" class="serif">5. What you may not do</h2>
+    <p>Without prior written consent you must not copy, scrape, mirror or republish the site; clone the look or calculator set; extract rule tables to rebuild them elsewhere; use outputs to train a machine-learning model; frame the site inside another domain; remove copyright notices; sell generated PDFs; or register confusingly similar names.</p>
+
+    <h2 id="reports" class="serif">6. Charts, PDFs and saved reports</h2>
+    <p>A generated Kundli is a copyrighted compilation. Planetary positions are facts of nature; the selection, arrangement, commentary and colour are original expression. Saved report URLs are unguessable tokens, not a public directory. Downloading a PDF does not make you the copyright owner of the template.</p>
+
+    <h2 id="brand" class="serif">7. Name, logo and look</h2>
+    <p>“Zodiac Veda”, the astrolabe crest, the ZV monogram and the gold-and-ivory wordmark must not be used in a way that suggests sponsorship or authorship that does not exist. You may say a chart was “generated with Zodiac Veda” in plain text.</p>
+
+    <h2 id="quotes" class="serif">8. Historical quotations</h2>
+    <p>The rotating lines on the homepage are well-known sayings associated with historical figures and are shown for cultural atmosphere. They are not legal advice or scientific proof of astrology, and they are not a claim that those persons endorsed this website.</p>
+
+    <h2 id="disclaimer" class="serif">9. Astrology and liability disclaimer</h2>
+    <p>Jyotisha is a traditional interpretive system. Calculators on this site are educational tools. They are not medical, legal, financial, psychological or marital advice, not a court document, and not a guarantee of any future event. You remain responsible for decisions about health, money, marriage, children, travel and career.</p>
+
+    <h2 id="data" class="serif">10. Birth data you submit</h2>
+    <p>Submit only information you have a right to use. Do not enter another adult’s details to harass them. Do not enter a child’s data unless you are the parent or legal guardian and the use is genuine and private.</p>
+
+    <h2 id="third-party" class="serif">11. Third-party material</h2>
+    <p>Place lookup, fonts, libraries and hosting may involve third-party components under their own licences. Classical Sanskrit names of signs, planets and yogas are part of the shared Jyotisha vocabulary.</p>
+
+    <h2 id="enforcement" class="serif">12. Enforcement</h2>
+    <p>Unauthorised copying, scraping, impersonation or commercial reuse may be met with a request to stop, a takedown notice, access restriction and, where proportionate, legal remedies. Accidental use is usually resolved with a first letter. Deliberate cloning will not be treated as accidental.</p>
+
+    <h2 id="contact" class="serif">13. Permissions and notices</h2>
+    <div class="card goldbox">
+      <p class="serif" style="font-size:1.3rem;color:#fef3c7;margin:0 0 8px">Zodiac Veda</p>
+      <p>Gachibowli, Hyderabad, Telangana 500032, India</p>
+      <p>Email: <a class="mail" href="mailto:vasaanirudh444@gmail.com">vasaanirudh444@gmail.com</a></p>
+    </div>
+    <p>Please put “Copyright permission” or “Copyright notice” in the subject line. Sending a request does not grant a licence until we confirm it in writing.</p>
+
+    <h2 id="law" class="serif">14. Governing law</h2>
+    <p>This notice is intended to be read under the laws of India, including the Copyright Act, 1957. Courts at Hyderabad, Telangana, shall be a convenient forum for disputes about the site’s intellectual property, subject to any non-excludable rights you have.</p>
+    <p class="serif" style="font-size:1.6rem;color:#f8fafc">© 2026 Zodiac Veda. All rights reserved.</p>
+    <p><a class="pill" href="#home">← Back to homepage preview</a></p>
+  </article>
+
+  <script>
+    const quotes = [
+      { q: "Millionaires don't use astrology, billionaires do.", a: "J.P. Morgan" },
+      { q: "Astrology is a science in itself and contains an illuminating body of knowledge. It taught me many things, and I am greatly indebted to it.", a: "Albert Einstein" },
+      { q: "We are born at a given moment, in a given place, and like vintage years of wine, we have the qualities of the year and of the season in which we are born.", a: "Carl Jung" },
+      { q: "I have studied the subject, Mr. Halley, you have not.", a: "Sir Isaac Newton" },
+      { q: "The stars incline, they do not compel.", a: "Thomas Aquinas" },
+      { q: "A physician without a knowledge of astrology has no right to call himself a physician.", a: "Hippocrates" },
+      { q: "Astrology is astronomy brought down to earth and applied toward the affairs of men.", a: "Ralph Waldo Emerson" },
+      { q: "It is the stars, the stars above us, govern our conditions.", a: "William Shakespeare" }
+    ];
+    let i = 0;
+    const text = document.getElementById("qtext");
+    const who = document.getElementById("qwho");
+    const dots = document.getElementById("qdots");
+    quotes.forEach((_, k) => {
+      const b = document.createElement("button");
+      b.onclick = () => show(k);
+      dots.appendChild(b);
+    });
+    function show(n) {
+      i = n;
+      text.textContent = "“" + quotes[i].q + "”";
+      who.textContent = "— " + quotes[i].a;
+      [...dots.children].forEach((b, k) => b.className = k === i ? "on" : "");
+    }
+    show(0);
+    setInterval(() => show((i + 1) % quotes.length), 6500);
+  </script>
+</body>
+</html>

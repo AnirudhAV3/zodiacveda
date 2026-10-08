@@ -24,7 +24,7 @@ export default function MatchingPage() {
         </header>
         <MatchingForm />
       </div>
-      <CalculatorSeoContent slug="marriage-matching" /><footer className="mx-auto mt-12 max-w-6xl border-t border-slate-800 py-6"></footer>
+      <CalculatorSeoContent slug="marriage-matching" />
     </main>
   );
 }

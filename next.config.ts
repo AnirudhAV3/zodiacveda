@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/birth-chart-calculator", destination: "/build", permanent: true },
       { source: "/kundli-calculator", destination: "/build", permanent: true },
+      { source: "/western-astrology-calculator", destination: "/calculators/western-astrology", permanent: true },
+      { source: "/natal-chart-calculator", destination: "/calculators/western-astrology", permanent: true },
+      { source: "/tropical-birth-chart", destination: "/calculators/western-astrology", permanent: true },
       { source: "/kundli-matching", destination: "/calculators/marriage-matching", permanent: true },
       { source: "/calculators/kundli-matching", destination: "/calculators/marriage-matching", permanent: true },
       { source: "/calculators/guna-milan", destination: "/calculators/marriage-matching", permanent: true },

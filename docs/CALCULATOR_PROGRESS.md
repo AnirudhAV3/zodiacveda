@@ -1,18 +1,20 @@
 # Calculator progress checkpoint — ALL COMPLETE
 
 ## Homepage rules
-- 11 equal tiles.
+- 12 equal tiles.
 - Tile 1: Build Your Horoscope (left).
-- Tile 2: Marriage Horoscope Matching (right).
+- Tile 2: Western Astrology (tropical natal).
+- Tile 3: Marriage Horoscope Matching.
 - Homepage top and hero **Build Chart** controls call `scrollIntoView()` and update
   `#calculators`, so repeated clicks scroll even when the hash is already set. Browser-tested
   by clicking, scrolling to top, and clicking again on both controls. The first tile still
   opens `/build`.
-- Ready/upcoming counts are computed from tile status; now 11 ready, 0 upcoming.
+- Ready/upcoming counts are computed from tile status; now 12 ready, 0 upcoming.
 
-## Completed (11 of 11)
+## Completed (12 of 12)
 1. Build Your Horoscope — `/build`, `/chart/[slug]`, PDF.
-2. Marriage Horoscope Matching — `/calculators/marriage-matching`, `/api/matches`.
+2. Western Astrology — `/calculators/western-astrology`, `/api/western` (tropical, Porphyry, planets through Pluto, aspects, patterns, transits, progressions).
+3. Marriage Horoscope Matching — `/calculators/marriage-matching`, `/api/matches`.
 3. All Yogas — `/calculators/all-yogas`, `/api/yogas`.
 4. All Doshas — `/calculators/all-doshas`, `/api/doshas`.
 5. Gemstone — `/calculators/gemstones`, `/api/gemstones`.
@@ -51,10 +53,10 @@
 - `tests/final-doshas.e2e.cjs`: all 11 tiles available; Build/Marriage first row; homepage
   Build Chart scroll; real save/render for all 3; key comprehensive sections; mobile.
 
-## Homepage-only designer credit
-`Personally designed by Anirudh Vasa...` exists only in `src/app/page.tsx`.
-It was removed from `/build`, every calculator form/result, and the full chart page.
-`tests/final-site.e2e.cjs` verifies all 11 routes plus repeat-scroll behaviour.
+## Homepage tagline and site footer
+Personal designer-name credit was removed. The public footer now carries a brand
+tagline, © 2026 All rights reserved (linking to `/copyright`), contact email and
+Gachibowli / Hyderabad address. Quote attributions no longer show “(attributed)”.
 
 ## Full verification (all passing)
 Unit: dedicated-doshas, nakshatra-dasha, gemstone-varga, all-doshas, all-yogas,
