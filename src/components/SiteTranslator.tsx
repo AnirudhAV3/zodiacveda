@@ -69,8 +69,10 @@ export default function SiteTranslator() {
     const controller = new AbortController();
     const queued = new Map<string, TranslationRecord>();
     const failed = new Set<string>();
+    let inFlightKeys: string[] = [];
     let draining = false;
     let scheduled = false;
+    let providerFailed = false;
 
     const keyFor = (source: string) => `${target}\u0000${source}`;
     const enqueue = (record: TranslationRecord) => {
@@ -90,7 +92,7 @@ export default function SiteTranslator() {
           record.apply(cached);
           record.lastApplied = cached;
         }
-      } else if (!failed.has(key)) {
+      } else if (!providerFailed && !failed.has(key)) {
         queued.set(key, record);
         scheduleDrain();
       }
@@ -176,6 +178,7 @@ export default function SiteTranslator() {
         while (queued.size && !controller.signal.aborted) {
           const batch = [...queued.entries()].slice(0, 50);
           batch.forEach(([key]) => queued.delete(key));
+          inFlightKeys = batch.map(([key]) => key);
           sendStatus({ language: target, status: "translating" });
           const response = await fetch("/api/translate", {
             method: "POST",
@@ -200,13 +203,17 @@ export default function SiteTranslator() {
               record.lastApplied = translated;
             }
           });
+          inFlightKeys = [];
         }
         if (!controller.signal.aborted) sendStatus({ language: target, status: "ready" });
       } catch (error) {
         if (controller.signal.aborted) return;
         const message = error instanceof Error ? error.message : "Translation failed.";
+        inFlightKeys.forEach((key) => failed.add(key));
+        inFlightKeys = [];
         queued.forEach((record, key) => failed.add(key));
         queued.clear();
+        providerFailed = true;
         setNotice(message);
         sendStatus({ language: target, status: "error", message });
       } finally {
@@ -267,7 +274,7 @@ export default function SiteTranslator() {
 
   if (!notice || target === "en") return null;
   return (
-    <div role="alert" className="fixed bottom-4 left-1/2 z-[70] flex w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 items-center justify-between gap-4 rounded-xl border border-rose-300/30 bg-[#0b0a1f]/95 px-4 py-3 text-sm text-rose-100 shadow-2xl">
+    <div role="alert" data-no-translate="" className="fixed bottom-4 left-1/2 z-[70] flex w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 items-center justify-between gap-4 rounded-xl border border-rose-300/30 bg-[#0b0a1f]/95 px-4 py-3 text-sm text-rose-100 shadow-2xl">
       <span>{notice}</span>
       <button type="button" className="shrink-0 font-semibold underline underline-offset-2" onClick={() => setRetry((value) => value + 1)}>
         Retry
