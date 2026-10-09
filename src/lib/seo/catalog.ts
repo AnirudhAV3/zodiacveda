@@ -195,6 +195,38 @@ export const CALCULATOR_SEO = {
       { q: "Is Shani Dhaiya part of Sade Sati?", a: "No. Dhaiya usually refers to Saturn in the fourth or eighth sign from the Moon and is shown separately." },
     ],
   },
+  "western-horoscope": {
+    name: "Western Horoscope Calculator",
+    shortName: "Western Horoscope",
+    path: "/calculators/western-horoscope",
+    title: "Free Western Horoscope Calculator – Sun, Moon, Rising & Aspects",
+    description: "Create a tropical Western birth chart with Sun, Moon and Rising signs, planetary houses, major aspects and retrograde placements.",
+    keywords: ["Western horoscope calculator", "tropical birth chart", "Sun Moon Rising calculator", "astrology aspects", "birth chart houses"],
+    intro: "Explore a tropical-zodiac snapshot of your natal chart using your recorded date, time and place of birth. The report includes the Sun, Moon and Rising signs, planetary houses and major aspects.",
+    features: ["Tropical planetary placements", "Sun, Moon and Rising signs", "Equal-sign house placements", "Major conjunction, sextile, square, trine and opposition aspects"],
+    steps: ["Enter the recorded birth date, time and birth city.", "The calculator derives tropical positions and the ascendant.", "Review planetary placements, houses and major aspects."],
+    faq: [
+      { q: "What is the difference between a tropical and sidereal chart?", a: "A tropical chart anchors the zodiac to the equinoxes; a sidereal chart references the observed stellar backdrop and applies an ayanamsa." },
+      { q: "Does the Rising sign depend on birth time?", a: "Yes. The ascendant moves quickly, so accurate recorded birth time and location are important." },
+      { q: "Are the interpretations guaranteed predictions?", a: "No. Astrology is a traditional interpretive system. This calculator is for reflection and education, not certainty or professional advice." },
+    ],
+  },
+  jyotirlinga: {
+    name: "Jyotirlinga Pilgrimage Calculator",
+    shortName: "Jyotirlingas to Visit",
+    path: "/calculators/jyotirlinga",
+    title: "Jyotirlinga Calculator – Six Traditional Temples from Your Horoscope",
+    description: "Find six traditional Jyotirlinga shrine suggestions counted from your Moon sign and ascendant for strength, obstacles and fortune.",
+    keywords: ["Jyotirlinga calculator", "Jyotirlinga by birth chart", "Jyotirlinga pilgrimage", "Jyotirlinga from Moon sign", "Jyotirlinga from Lagna"],
+    intro: "This traditional Jyotirlinga guide maps the 1st, 6th and 9th signs from your Moon sign and ascendant to six shrine suggestions for reflection and spiritual practice.",
+    features: ["Six shrine suggestions from Moon sign and Lagna", "Traditional 1st, 6th and 9th house themes", "Shrine names and locations", "Plain-language explanation of the counting method"],
+    steps: ["Enter your birth date, exact time and birthplace.", "The calculator determines your Moon sign and ascendant.", "Review six Jyotirlinga suggestions and their traditional themes."],
+    faq: [
+      { q: "How are the six Jyotirlingas selected?", a: "The report counts the 1st, 6th and 9th signs from both the Janma Rashi (Moon sign) and Lagna, then maps each sign to a shrine." },
+      { q: "Is a pilgrimage required to change an outcome?", a: "No. This is a traditional spiritual reflection, not a promise, requirement or substitute for practical support." },
+      { q: "How accurate must the birth time be?", a: "The Moon-sign suggestions depend primarily on the birth date and time, while the Lagna suggestions need accurate birth time and place." },
+    ],
+  },
 } as const satisfies Record<string, CalculatorSeo>;
 
 export function absoluteUrl(path = "/") {

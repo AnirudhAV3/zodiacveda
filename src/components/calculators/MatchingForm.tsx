@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import BirthDetailsFields, { checkDraft, emptyBirthDraft, type BirthDraft } from "./BirthDetailsFields";
+import { addSavedReport } from "@/lib/saved-reports";
 
 const DRAFT_KEY = "jyotisha:marriage-matching:draft-v1";
 
@@ -64,6 +65,7 @@ export default function MatchingForm() {
       let data: { slug?: string; url?: string; error?: string };
       try { data = await res.json(); } catch { throw new Error("The server response was interrupted. Your draft is saved; please try again."); }
       if (!res.ok || !data.slug) throw new Error(data.error || "Could not save this matching report. Please try again.");
+      addSavedReport(`/calculators/marriage-matching/${data.slug}`, `${first.name.trim()} & ${second.name.trim()} · Marriage matching`);
       try {
         const recentRaw = localStorage.getItem("jyotisha:recent-matches");
         const recent = recentRaw ? JSON.parse(recentRaw) : [];

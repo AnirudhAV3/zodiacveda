@@ -9,7 +9,7 @@ export default function CalculatorSeoContent({ slug }: { slug: SeoSlug }) {
       <JsonLd data={calculatorJsonLd(slug)} />
       <section aria-labelledby={`${slug}-guide`} className="relative z-10 mx-auto mt-12 max-w-5xl px-4 pb-10 sm:px-6">
         <div className="card p-6 sm:p-8">
-          <p className="label-caps !text-amber-300">Free Vedic astrology calculator guide</p>
+          <p className="label-caps !text-amber-300">{slug === "western-horoscope" ? "Free Western astrology calculator guide" : "Free Vedic astrology calculator guide"}</p>
           <h2 id={`${slug}-guide`} className="mt-2 font-serif text-3xl font-semibold text-slate-100">About the {seo.name}</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-300">{seo.intro}</p>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -43,7 +43,7 @@ export default function CalculatorSeoContent({ slug }: { slug: SeoSlug }) {
         </div>
 
         <nav aria-label="Related astrology calculators" className="mt-5 rounded-2xl border border-slate-700/60 bg-slate-900/30 p-5">
-          <h2 className="font-serif text-xl font-semibold text-slate-100">Related Vedic astrology calculators</h2>
+          <h2 className="font-serif text-xl font-semibold text-slate-100">{slug === "western-horoscope" ? "Related astrology calculators" : "Related Vedic astrology calculators"}</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {Object.entries(CALCULATOR_SEO)
               .filter(([key]) => key !== slug)

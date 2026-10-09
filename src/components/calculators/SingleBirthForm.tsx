@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import BirthDetailsFields, { checkDraft, emptyBirthDraft, type BirthDraft } from "./BirthDetailsFields";
+import { addSavedReport } from "@/lib/saved-reports";
 
 function restore(value: unknown, fallback: BirthDraft): BirthDraft {
   if (!value || typeof value !== "object") return fallback;
@@ -17,7 +18,7 @@ function restore(value: unknown, fallback: BirthDraft): BirthDraft {
 }
 
 /** Shared single-person calculator form: draft recovery, one validation path, honest errors. */
-export default function SingleBirthForm({ endpoint, draftKey, submitLabel, busyLabel, intro, showStyle = true }: { endpoint: string; draftKey: string; submitLabel: string; busyLabel: string; intro: string; showStyle?: boolean }) {
+export default function SingleBirthForm({ endpoint, draftKey, submitLabel, busyLabel, intro, showStyle = true, birthDetailsSubtitle }: { endpoint: string; draftKey: string; submitLabel: string; busyLabel: string; intro: string; showStyle?: boolean; birthDetailsSubtitle?: string }) {
   const router = useRouter();
   const [person, setPerson] = useState(() => emptyBirthDraft("male"));
   const [style, setStyle] = useState<"north" | "south">("north");
@@ -63,6 +64,8 @@ export default function SingleBirthForm({ endpoint, draftKey, submitLabel, busyL
       let data: { slug?: string; url?: string; error?: string };
       try { data = await res.json(); } catch { throw new Error("The server response was interrupted. Your details are saved; please try again."); }
       if (!res.ok || !data.url) throw new Error(data.error || "Could not save this report. Please try again.");
+      const calculator = endpoint.split("/").pop()?.replace(/-/g, " ") ?? "Astrology report";
+      addSavedReport(data.url, `${person.name.trim()} · ${calculator}`);
       router.push(data.url);
     } catch (e) {
       setError(e instanceof Error && e.name === "AbortError" ? "Calculation took too long. Your birth details are saved on this device; please retry." : e instanceof Error ? e.message : "Calculation failed. Please retry.");
@@ -73,7 +76,7 @@ export default function SingleBirthForm({ endpoint, draftKey, submitLabel, busyL
   return (
     <form onSubmit={submit} className="space-y-6">
       <div className="rounded-2xl border border-amber-400/25 bg-amber-400/5 p-4 text-sm leading-relaxed text-slate-300">{intro}</div>
-      <BirthDetailsFields title="Birth details" subtitle="Accurate birth time and place give accurate house and yoga results." value={person} onChange={setPerson} disabled={busy} />
+      <BirthDetailsFields title="Birth details" subtitle={birthDetailsSubtitle ?? "Accurate birth time and place give accurate house and yoga results."} value={person} onChange={setPerson} disabled={busy} />
       {showStyle && (
         <div className="card p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">

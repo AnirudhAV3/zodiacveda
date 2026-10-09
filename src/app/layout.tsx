@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import SiteTranslator from "@/components/SiteTranslator";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo/catalog";
 import "./globals.css";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen font-sans antialiased">
         {children}
         <SiteFooter />
+        <SiteTranslator />
       </body>
     </html>
   );

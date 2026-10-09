@@ -12,7 +12,7 @@ export default function HomeStructuredData() {
           name: SITE_NAME,
           alternateName: "Zodiac Veda Vedic Astrology Calculators",
           url: SITE_URL,
-          description: "Free Vedic astrology calculators for Kundli, horoscope matching, yogas, doshas, gemstones, divisional charts, Nakshatra, Dasha, Sade Sati and a downloadable full birth-chart PDF.",
+          description: "Free Vedic and Western astrology calculators for Kundli, horoscope matching, Jyotirlinga suggestions, yogas, doshas, gemstones, divisional charts, Nakshatra, Dasha and Sade Sati.",
           inLanguage: "en",
           publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
         },

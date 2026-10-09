@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { addSavedReport } from "@/lib/saved-reports";
 
 interface Place {
   label: string;
@@ -84,6 +85,7 @@ export default function BirthForm() {
       });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || "Failed");
+      addSavedReport(`/chart/${j.slug}`, `${name.trim()} · Birth chart`);
       router.push(`/chart/${j.slug}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
