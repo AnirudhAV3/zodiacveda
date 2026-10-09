@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { addSavedReport, listSavedReports, removeSavedReport, type SavedReportLink } from "@/lib/saved-reports";
-import { useI18n } from "@/lib/i18n";
 
 export default function SavedReportsButton() {
-  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [reports, setReports] = useState<SavedReportLink[]>([]);
 
@@ -29,13 +27,13 @@ export default function SavedReportsButton() {
         aria-controls="saved-reports-panel"
         className="rounded-full border border-slate-600 px-4 py-2 text-sm text-slate-300 transition hover:border-amber-400 hover:text-amber-100"
       >
-        {t("navSaved")}
+        Saved
       </button>
       {open && (
         <div id="saved-reports-panel" className="absolute right-0 z-50 mt-2 w-[min(24rem,90vw)] rounded-2xl border border-white/15 bg-[#0b0a1f]/95 p-4 shadow-2xl backdrop-blur-xl">
-          <h2 className="font-serif text-xl text-slate-100">{t("savedTitle")}</h2>
+          <h2 className="font-serif text-xl text-slate-100">Saved reports</h2>
           {reports.length === 0 ? (
-            <p className="mt-3 text-sm text-slate-400">{t("savedEmpty")}</p>
+            <p className="mt-3 text-sm text-slate-400">No reports saved in this browser yet.</p>
           ) : (
             <ul className="mt-3 max-h-72 space-y-2 overflow-y-auto">
               {reports.map((report) => (
