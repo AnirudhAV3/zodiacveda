@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { addSavedReport } from "@/lib/saved-reports";
+import BirthProfileControls from "@/components/BirthProfileControls";
+import type { BirthDraft } from "@/components/calculators/BirthDetailsFields";
+import type { SavedBirthProfile } from "@/lib/saved-profiles";
 
 interface Place {
   label: string;
@@ -69,6 +72,32 @@ export default function BirthForm() {
     setTz(p.tz);
   };
 
+  const profileDraft: BirthDraft = {
+    name,
+    gender: gender === "female" ? "female" : "male",
+    date,
+    time,
+    place: place?.label ?? query,
+    lat,
+    lon,
+    tz,
+    locationConfirmed: Boolean(place),
+    manualCoordinates: manual,
+  };
+  const selectProfile = (profile: SavedBirthProfile) => {
+    const selectedPlace = { label: profile.place, lat: Number(profile.lat), lon: Number(profile.lon), tz: profile.tz };
+    setName(profile.name);
+    setGender(profile.gender);
+    setDate(profile.date);
+    setTime(profile.time);
+    setQuery(profile.place);
+    setPlace(selectedPlace);
+    setLat(profile.lat);
+    setLon(profile.lon);
+    setTz(profile.tz);
+    setManual(false);
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -100,6 +129,8 @@ export default function BirthForm() {
         <h1 className="mt-2 font-serif text-4xl font-semibold text-slate-100">Enter Birth Details</h1>
         <p className="mt-2 text-sm text-slate-400">Accurate time and place give accurate charts.</p>
       </div>
+
+      <BirthProfileControls value={profileDraft} onSelect={selectProfile} />
 
       <div className="grid gap-5 sm:grid-cols-[1fr_auto]">
         <label className="block">

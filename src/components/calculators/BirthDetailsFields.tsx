@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import BirthProfileControls from "@/components/BirthProfileControls";
+import type { SavedBirthProfile } from "@/lib/saved-profiles";
 
 export interface BirthDraft {
   name: string;
@@ -37,6 +39,11 @@ export default function BirthDetailsFields({ title, subtitle, value, onChange, d
   const [searching, setSearching] = useState(false);
   const [lookupNote, setLookupNote] = useState("");
   const patch = (v: Partial<BirthDraft>) => onChange({ ...value, ...v });
+  const selectProfile = (profile: SavedBirthProfile) => onChange({
+    ...profile,
+    locationConfirmed: true,
+    manualCoordinates: false,
+  });
 
   useEffect(() => {
     if (value.locationConfirmed || value.manualCoordinates || value.place.trim().length < 2) {
@@ -79,6 +86,7 @@ export default function BirthDetailsFields({ title, subtitle, value, onChange, d
     <fieldset disabled={disabled} className="card relative min-w-0 p-5 sm:p-6">
       <legend className={`px-2 font-serif text-2xl font-semibold ${color}`}>{title}</legend>
       <p className="mb-5 text-xs text-slate-400">{subtitle}</p>
+      <BirthProfileControls value={value} onSelect={selectProfile} />
       <div className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-[1fr_150px]">
           <div>
