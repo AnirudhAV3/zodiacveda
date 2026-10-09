@@ -57,6 +57,7 @@ export default function LanguagePicker() {
 
   const choose = (next: string) => {
     setCode(next);
+    setTranslationStatus("");
     try {
       localStorage.setItem(LANG_KEY, next);
     } catch {
@@ -112,7 +113,16 @@ export default function LanguagePicker() {
               {query ? `${filtered.length} matches` : `${LANGUAGES.length} searchable languages`}
             </p>
             {translationStatus && (
-              <p role="status" className="mt-2 text-xs text-amber-200">{translationStatus}</p>
+              <div role="status" className="mt-2 flex items-start justify-between gap-3 rounded-lg border border-amber-300/20 bg-amber-300/5 p-2 text-xs text-amber-100">
+                <span>{translationStatus}</span>
+                <button
+                  type="button"
+                  className="shrink-0 font-semibold underline underline-offset-2"
+                  onClick={() => window.dispatchEvent(new CustomEvent("zv-translation-retry"))}
+                >
+                  Retry
+                </button>
+              </div>
             )}
           </div>
           <ul role="listbox" aria-label="Languages" className="scroll-thin max-h-[min(60vh,24rem)] overflow-y-auto p-1">

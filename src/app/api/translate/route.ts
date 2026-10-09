@@ -121,7 +121,7 @@ export async function POST(request: Request) {
   const configuredUrl = process.env.LIBRETRANSLATE_URL;
   if (!configuredUrl) {
     return NextResponse.json(
-      { error: "Automatic translation is not configured. Set LIBRETRANSLATE_URL to your self-hosted translation service." },
+      { error: "Automatic translation is not available on this site yet. The selected language is saved, but some content may remain in English." },
       { status: 503 },
     );
   }

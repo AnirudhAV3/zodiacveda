@@ -28,7 +28,6 @@ function sendStatus(detail: { language: string; status: "translating" | "ready" 
 
 export default function SiteTranslator() {
   const [target, setTarget] = useState("en");
-  const [notice, setNotice] = useState("");
   const [retry, setRetry] = useState(0);
 
   useEffect(() => {
@@ -50,22 +49,16 @@ export default function SiteTranslator() {
         setTarget(LANGUAGES.some((language) => language.code === event.detail) ? event.detail : "en");
       }
     };
-    const onTranslationStatus = (event: Event) => {
-      if (event instanceof CustomEvent && event.detail?.language === target) {
-        setNotice(event.detail.status === "error" ? event.detail.message ?? "Translation failed." : "");
-      }
-    };
+    const onTranslationRetry = () => setRetry((value) => value + 1);
     window.addEventListener("zv-lang", onLanguageChange);
-    window.addEventListener("zv-translation-status", onTranslationStatus);
+    window.addEventListener("zv-translation-retry", onTranslationRetry);
     return () => {
       window.removeEventListener("zv-lang", onLanguageChange);
-      window.removeEventListener("zv-translation-status", onTranslationStatus);
+      window.removeEventListener("zv-translation-retry", onTranslationRetry);
     };
   }, [target]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Clear the previous language's provider error.
-    setNotice("");
     const controller = new AbortController();
     const queued = new Map<string, TranslationRecord>();
     const failed = new Set<string>();
@@ -214,7 +207,6 @@ export default function SiteTranslator() {
         queued.forEach((record, key) => failed.add(key));
         queued.clear();
         providerFailed = true;
-        setNotice(message);
         sendStatus({ language: target, status: "error", message });
       } finally {
         draining = false;
@@ -240,12 +232,11 @@ export default function SiteTranslator() {
         });
       });
     };
-    restoreOriginalContent();
+    if (target !== "en") restoreOriginalContent();
 
     if (target !== "en") {
       scan(document.documentElement);
     } else {
-      setNotice("");
       sendStatus({ language: target, status: "ready" });
     }
 
@@ -272,13 +263,5 @@ export default function SiteTranslator() {
     };
   }, [target, retry]);
 
-  if (!notice || target === "en") return null;
-  return (
-    <div role="alert" data-no-translate="" className="fixed bottom-4 left-1/2 z-[70] flex w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 items-center justify-between gap-4 rounded-xl border border-rose-300/30 bg-[#0b0a1f]/95 px-4 py-3 text-sm text-rose-100 shadow-2xl">
-      <span>{notice}</span>
-      <button type="button" className="shrink-0 font-semibold underline underline-offset-2" onClick={() => setRetry((value) => value + 1)}>
-        Retry
-      </button>
-    </div>
-  );
+  return null;
 }
